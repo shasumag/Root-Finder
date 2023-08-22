@@ -520,37 +520,3 @@ window.grid_columnconfigure(1, weight=1)
 # run the gui
 if __name__ == "__main__":
     window.mainloop()
-
-"""
-Error Log:
- / errors and issues with pack() and grid()
- / figuring out Frames (and how pack/grid work for stuff inside it)
- / radio buttons not doing anything when pressed (had to give them a shared StringVar)
- / radio buttons all start out selected (StringVar init value changed to " ")
- * bisection method might be implemented wrong?
- / problems with layout of Frames
- * problems with tkinter + matplotlib for plot and toolbar
- / issues with widget winfo_x, winfo_rootx, update, and wrapping widgets
- / entry doesn't have a "command" option?
- / figuring out how to update function info text dynamically
- - needed doublevars instead of stringvars for algorithm options
- / too many trig subtypes, how to generalise trig function?
- / had to add "t" to all function types
- - tkinter canvas is weirdly shaped and messed up layout
- / algorithms are giving massive values for roots and result in unexpected colors/patterns
- / solved pack error message by going into _backend_tk.py from NavigationToolbar2Tk definition and finding that I needed to turn pack_toolbar=False
- / algorithms sometimes find massive roots and ruin the scale of the colormap
- / algorithms sometimes give only 0 as an output?
- / graph sizes are inconsistent (big titles), and since I don't want to hard code something so that it will fit into the window, so made the results show up in a smaller new window
- / program freezes when calculating, maybe multithreading will fix?
- / the x and y axis where the index of the inputs from the array, not the value of the inputs themselves
- / managed to find how to set specific pixels to white, but now how to decide which pixels are out of range?
- / the graphs are sometimes squished? for some reason the colorbar text is occasionally long? and only for polynomials of degree 3 or greater
- / managed to save plot as image without it being white, had to look at documentation and also simplified to one longer figure with 2 plots instead of 2 figures
- / couldn't save file with date and time, removed each part to check what was wrong, found out that cant use colons in file names
- / can't use * or + in a filename, so remove * and replace + with p
- / after playing around, realised that if figure small then small step will still produce grainy image because not enough pixels. added fig width entry
- / after running it with big fig width and small step caused it to use up over 1gb of memory, I a. went back and fixed the code to enforce a max input count and b. started trying to figure out a way to cancel calculations if they take too long 
- - found out I could use a tk.BooleanVar to store if the calculations should be done, and by passing it into the function I can effectively stop the second thread early without terminating it 
- / hyperbolic functions produce a math range error, and exponential functions don't display anything? oh, exponential was 1^x, so ofc no roots
-"""

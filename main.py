@@ -112,6 +112,11 @@ def plot(cancel):
             if r_s == "NaN":
                 r_s = 0
 
+            # round answer to tolerance
+            if tol > 0:
+                r_s = round(r_s, abs(int(math.log10(1/tol))))
+                r_b = round(r_b, abs(int(math.log10(1/tol))))
+            
             # if no root was found and, for example, it blows up wildly or never settles, the "root" found after max_iter
             # will not be at a y value close to 0, and will mess up the entire plot. to fix this, set these values to np.nan
             if abs(f(subtype_selected, r_s, constants)) > tol:

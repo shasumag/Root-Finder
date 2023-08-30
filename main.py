@@ -158,14 +158,18 @@ def plot(cancel):
     # get the date as day-month-year hour:minute:second
     date = datetime.today().strftime("%Y-%m-%d (y-m-d) %Hh%Mm%Ss")
 
+    # get min/max values of algorithm outputs
+    algorithm_max = np.nanmax([np.nanmax(roots_secant), np.nanmax(roots_bisection)])
+    algorithm_min = np.nanmin([np.nanmin(roots_secant), np.nanmin(roots_bisection)])
+    
     # plot roots on matplotlib color maps, set their titles and ensure the text wraps, then create a colorbar for each plot
     # secant:
-    secant_img = plot1.pcolormesh(inputs, inputs, roots_secant, cmap=cmap)
+    secant_img = plot1.pcolormesh(inputs, inputs, roots_secant, cmap=cmap, vmin=algorithm_min, vmax=algorithm_max)
     plot1.set_title("\n".join(textwrap.wrap(f"Secant: {plot_name}", 20)), fontsize=10)
     fig.colorbar(secant_img, ax=plot1, label="Roots")
 
     # bisection:
-    bisection_img = plot2.pcolormesh(inputs, inputs, roots_bisection, cmap=cmap)
+    bisection_img = plot2.pcolormesh(inputs, inputs, roots_bisection, cmap=cmap, vmin=algorithm_min, vmax=algorithm_max)
     plot2.set_title("\n".join(textwrap.wrap(f"Bisection: {plot_name}", 20)), fontsize=10)
     fig.colorbar(bisection_img, ax=plot2, label="Roots")
 

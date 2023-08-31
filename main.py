@@ -112,11 +112,6 @@ def plot(cancel):
             # turn the NaN returned because of a divide by zero error into a np.nan so that it can be recognized later
             if r_s == "NaN":
                 r_s = np.nan
-
-            # round answer to tolerance
-            if tol > 0:
-                r_s = round(r_s, abs(int(math.log10(tol))))
-                r_b = round(r_b, abs(int(math.log10(tol))))
             
             # if no root was found and, for example, it blows up wildly or never settles, the "root" found after max_iter
             # will not be at a y value close to 0, and will mess up the entire plot. to fix this, set these values to np.nan
@@ -132,6 +127,11 @@ def plot(cancel):
                 # if abs(r_b) > 20:
                 #     r_b = np.nan
 
+            # round answer to tolerance
+            if tol > 0:
+                r_s = round(r_s, abs(int(math.log10(tol))))
+                r_b = round(r_b, abs(int(math.log10(tol))))
+            
             # add the root the the array
             roots_secant[i].append(r_s)
             roots_bisection[i].append(r_b)

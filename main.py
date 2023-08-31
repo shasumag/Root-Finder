@@ -1,5 +1,6 @@
 import gc
 import os
+import sys
 import math
 import threading
 # import time
@@ -24,6 +25,7 @@ WINDOW_WIDTH = 700
 WINDOW_HEIGHT = 500
 FUNCTION_OPTION_TEXT = ["Polynomial", "Trigonometric", "Exponential"]
 TRIG_TYPES = ["sin", "cos", "tan", "asin", "acos", "atan", "sinh", "cosh", "tanh", "asinh", "acosh", "atanh"]
+MIN_TOL = sys.float_info.epsilon + sys.float_info.epsilon * 0.01  # min tolerance is system epsilon with 1% buffer
 
 
 def plot(cancel):
@@ -61,7 +63,7 @@ def plot(cancel):
         return
 
     # check validity of user inputs
-    if step <= 0 or tol < 0 or max_iter <= 0 or l_bound == u_bound or fig_width < 1 or abs_max_root < 0 or u_bound < l_bound:
+    if step <= 0 or tol < MIN_TOL or max_iter <= 0 or l_bound == u_bound or fig_width < 1 or abs_max_root < 0 or u_bound < l_bound:
         messagebox.showinfo(title="Invalid input", message="Rules for algorithm options: \n- Step must be > 0\n- Tolerance must be >= 0\n- Max iterations must be > 0\n- Lower bound cannot be = to upper bound\n- Figure width must be >= 1\n- Absolute value of max root must be >= 0")
         return
 
@@ -128,9 +130,8 @@ def plot(cancel):
                 #     r_b = np.nan
 
             # round answer to tolerance
-            if tol > 0:
-                r_s = round(r_s, abs(int(math.log10(tol))))
-                r_b = round(r_b, abs(int(math.log10(tol))))
+            r_s = round(r_s, abs(int(math.log10(tol))))
+            r_b = round(r_b, abs(int(math.log10(tol))))
             
             # add the root the the array
             roots_secant[i].append(r_s)
